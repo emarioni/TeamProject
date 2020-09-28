@@ -15,13 +15,31 @@
       <h1>Body Mass Index (BMI) Monitor</h1>
     </div>
     <div data-role="content">
-      <div data-role="controlgroup">
-        <a href="#legalNotice" data-role="button">Enter</a>
+      Password :
+      <input type="password" id="passcode"></intut>
+      <div data-role="controlgroup" id="numKeyPad">
+        <a data-role="button" id="btnEnter" type="submit">Enter</a>
         <a href="#pageAbout" data-role="button">About</a>
-        <p>This is the project for Week 4, Chapter 5. We just create the<br>
-           pages and the links to navigate between them. Implementation<br>
-           of the password-based entry page will be completed in Week 5.
-        </p>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button" onclick="addValueToPassword(7)">7</a>
+        <a data-role="button" onclick="addValueToPassword(8)">8</a>
+        <a data-role="button" onclick="addValueToPassword(9)">9</a>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button" onclick="addValueToPassword(4)">4</a>
+        <a data-role="button" onclick="addValueToPassword(5)">5</a>
+        <a data-role="button" onclick="addValueToPassword(6)">6</a>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button" onclick="addValueToPassword(1)">1</a>
+        <a data-role="button" onclick="addValueToPassword(2)">2</a>
+        <a data-role="button" onclick="addValueToPassword(3)">3</a>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button" onclick="addValueToPassword(0)">0</a>
+        <a data-role="button" onclick="addValueToPassword('bksp')"
+        data-icon="delete">del</a>
       </div>
     </div>
   </div>
@@ -31,7 +49,11 @@
       <h1>Disclaimer</h1>
     </div>
     <div data-role="content">
-      <p>This section will be completed in Week 5. Please hit "Yes" to continue.</p>
+      <p>Please use this site at your own risk. The calculators, graphs and suggestions displayed <br>
+         are not from a licensed physician and do not offer professional medical advice. Seek <br>
+         medical attention from a professional licensed physician if real health concerns occur. <br>
+         The content on this site is only inteded to offer factual information on the data entered, <br>
+         and will not be held responsible. Thank You</p>
       <br>
       <a href="#pageUserInfo" id="noticeYes" data-role="button" data-icon="forward" data-mini="false">Yes</a>
     </div>
@@ -43,7 +65,11 @@
       <h1>Info</h1>
     </div>
     <div data-role="content">
-      <p>This section will be completed in Week 5.</p>
+      <p>This online BMI calculator offers the ability to estimate your Body Mass Idex, also known <br>
+         as your body fat. BMI is an estimate of your body fat. A BMI from 25 to 29.9 is considered <br>
+         overweight. The higher your BMI, the higher risk for heart disease, high blood pressure, type <br>
+         2 diabetes, gallstones, osteoarthritis, sleep apnea, and certain cancers. In addition to the BMI <br> 
+         calculator, we offer a graph and suggestions to help you lower your BMI.</p>
     </div>
   </div>
 
@@ -54,7 +80,51 @@
       <h1>User Information</h1>
     </div>
     <div data-role="content">
-      <p>This section will be completed in Week 5. Please hit "Menu" on top left to go to the menu page.</p>
+      <form id="frmUserForm" action="">
+        <div data-role="fieldcontain">
+          <label for="txtFirstName">First Name: </label>
+          <input type="text" placeholder="First Name" name="txtFirstName"
+          data-mini="false" id="txtFirstName" value=""
+          required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="txtLastName">Last Name: </label>
+          <input type="text" placeholder="Last Name" name="txtLastName"
+          data-mini="false" id="txtLastName" value=""
+          required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="datBirthdate">Birthdate: </label>
+          <input type="date" name="datBirthdate" data-mini="false"
+          id="datBirthdate" value="" required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="changePassword">Edit Password: </label>
+          <input type="password" placeholder="New Password" name="changePassword"
+          data-mini="false" id="changePassword" value=""
+          required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="txtHealthCardNumber">Health Card Number: </label>
+          <input type="text" placeholder="Health Card Number"
+          name="txtHealthCardNumber" data-mini="false"
+          id="txtHealthCardNumber" value="" required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="txtHeight">Height in Inches: </label>
+          <input type="text" placeholder="Height"
+          name="txtHeight" data-mini="false"
+          id="txtHeight" value="" required>
+        </div>
+        <div data-role="fieldcontain">
+          <label for="txtWeight">Weight in Pounds: </label>
+          <input type="text" placeholder="Weight"
+          name="txtWeight" data-mini="false"
+          id="txtWeight" value="" required>
+        </div>
+        <input type="submit" id="btnUserUpdate" data-icon="check"
+        data-iconpos="left" value="Update" data-inline="true">
+      </form>
     </div>
   </div>
 
@@ -63,7 +133,7 @@
       <a href="#pageMenu" data-role="button" data-icon="bars" data-iconpos="left" data-inline="true">Menu</a>
       <a href="#pageAbout" data-role="button" data-icon="info" data-iconpos="right" data-inline="true">Info</a>
       <h1>Body Mass Index</h1>
-    </div>
+    </div>           
     <div data-role="content">
       <div data-role="controlgroup">
         <a href="#pageUserInfo" data-role="button">User Info</a>
@@ -81,7 +151,19 @@
       <h1>New BMI Record</h1>
     </div>
     <div data-role="content">
-      <p>This section will be completed in Week 5. Please hit "Menu" on top left to return to menu page.</p>
+      <div data-role="fieldcontain" id="divUserSection">
+      </div>
+      <h3 align="center">History</h3>
+      <div data-role="fieldcontain">
+        <table id=tblRecords" class="ui-responsive table-stroke">
+        </table>
+      </div> 
+      <div data-role="fieldcontain">
+        <a href="#pageNewRecordForm" id="btnAddRecord" data-role="button"
+        data-icon="plus">Add New Entry</a>
+        <a href="#" data-role="button" id="btnClearHistory"
+        data-icon="delete">Clear History</a>
+      </div>
     </div>
   </div>
 
@@ -106,6 +188,20 @@
       <p>This section will be completed in Week 6. Please hit "Menu" on top left to return to the menu page.</p>
     </div>
   </div>
+                                                                  
+<script src="scripts/RGraph.common.core.js"></script>
+  <script src="scripts/RGraph.common.effects.js"></script>
+  <script src="scripts/RGraph.line.js"></script>
+  <script src="scripts/RGraph.cornergauge.js"></script>
+  <script src="scripts/RGraph.hprogress.js"></script>
+
+  <script src="scripts/UserForm.js"></script>
+  <script src="scripts/Table.js"></script>
+  <script src="scripts/Navigation.js"></script>
+  <script src="scripts/Advice.js"></script>
+  <script src="scripts/GraphAnimate.js"></script>
+  <script src="scripts/pageLoader.js"></script>
+                                     
 </body>
 </html>
   
