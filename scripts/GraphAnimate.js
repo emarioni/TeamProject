@@ -65,14 +65,14 @@ function getBMIbounds(bmiLower, bmiUpper) {
    * stage)
    */
   if (BMILevel == "StageA") {
-    bmiUpper[0] = bmiUpper[1] = 0.1;
+    bmiUpper[0] = bmiUpper[1] = 18.5;
     bmiLower[0] = bmiLower[1] = 0.01;
   } else if (BMILevel == "StageB") {
-    bmiUpper[0] = bmiUpper[1] = 0.5;
-    bmiLower[0] = bmiLower[1] = 0.1;
+    bmiUpper[0] = bmiUpper[1] = 25.0;
+    bmiLower[0] = bmiLower[1] = 18.5;
   } else {
-    bmiUpper[0] = bmiUpper[1] = 2.0;
-    bmiLower[0] = bmiLower[1] = 0.35;
+    bmiUpper[0] = bmiUpper[1] = 30.0;
+    bmiLower[0] = bmiLower[1] = 25.0;
   }
 }
 
