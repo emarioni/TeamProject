@@ -6,15 +6,12 @@ function advicePage() {
     $(location).attr("href", "#pageMenu");
   } else {
 
-    var user = JSON.parse(localStorage.getItem(
-      "user"));
-    var BMILevel = user.BMIRange;
-
     var tbRecords = JSON.parse(localStorage.getItem(
       "tbRecords"));
     tbRecords.sort(compareDates);
     var i = tbRecords.length - 1;
     var BMI = tbRecords[i].BMI;
+    var BMILevel = tbRecords[i].BMI;
 
     var c = document.getElementById(
       "AdviceCanvas");
@@ -33,19 +30,19 @@ function drawAdviceCanvas(ctx, BMILevel, BMI) {
   ctx.fillText("Your current BMI is " + BMI +
     ".", 25, 320);
 
-  if (BMILevel == "StageA") {
+  if ((BMILevel >= 0.01) && (BMILevel <= 18.5)) {
     ctx.fillText(
       "Your target BMI range is: 18.5-25.0",
       25, 350);
     levelAwrite(ctx, BMI);
     levelAMeter(ctx, BMI);
-  } else if (BMILevel == "StageB") {
+  } else if ((BMILevel >= 18.51) && (BMILevel <= 25.0)) {
     ctx.fillText(
-      "Your target BMI range is: 18.5-25.0",
+      "You are within your target range",
       25, 350);
     levelBwrite(ctx, BMI);
     levelBMeter(ctx, BMI);
-  } else if (BMILevel == "StageC") {
+  } else if (BMILevel >= 25.01) {
     ctx.fillText(
       "Your target BMI range is: 18.5-25.0",
       25, 350);
@@ -56,9 +53,7 @@ function drawAdviceCanvas(ctx, BMILevel, BMI) {
 
 //For deciding what to write for given values of BMI level A
 function levelAwrite(ctx, BMI) {
-  if ((BMI >= 0.01) && (BMI <= 0.1)) {
-    writeAdvice(ctx, "green");
-  } else if ((BMI >= 0.1) && (BMI <= 0.5)) {
+  if ((BMI >= 0.01) && (BMI <= 18.5)) {
     writeAdvice(ctx, "yellow");
   } else {
     writeAdvice(ctx, "red");
@@ -66,24 +61,16 @@ function levelAwrite(ctx, BMI) {
 }
 
 function levelBwrite(ctx, BMI) {
-  if ((BMI >= 0.1) && (BMI <= 0.5)) {
+  if ((BMI >= 18.51) && (BMI <= 25.0)) {
     writeAdvice(ctx, "green");
-  } else if ((BMI >= 0.5) && (BMI <= 2.0)) {
-    writeAdvice(ctx, "yellow");
-  } else if ((BMI >= 0.01) && (BMI <= 0.1)) {
-    writeAdvice(ctx, "yellow");
   } else {
     writeAdvice(ctx, "red");
   }
 }
 
 function levelCwrite(ctx, BMI) {
-  if ((BMI >= 0.35) && (BMI <= 2.0)) {
-    writeAdvice(ctx, "green");
-  } else if ((BMI >= 2) && (BMI <= 10)) {
-    writeAdvice(ctx, "yellow");
-  } else if ((BMI >= 0.1) && (BMI <= 0.35)) {
-    writeAdvice(ctx, "yellow");
+  if (BMI >= 25.01) {
+    writeAdvice(ctx, "red");
   } else {
     writeAdvice(ctx, "red");
   }
@@ -112,70 +99,70 @@ function writeAdvice(ctx, level) {
 }
 
 function levelAMeter(ctx, BMI) {
-  if (BMI <= 3) {
+  if (BMI <= 35) {
     var cg = new RGraph.CornerGauge(
-        "AdviceCanvas", 0, 3, BMI)
+        "AdviceCanvas", 0, 35, BMI)
       .Set("chart.colors.ranges", [
-        [0.5, 3, "red"],
-        [0.1, 0.5, "yellow"],
-        [0.01, 0.1, "#0f0"]
+        [25.0, 35, "red"],
+        [18.5, 25.0, "#0f0"],
+        [0.01, 18.5, "yellow"]
       ]);
   } else {
     var cg = new RGraph.CornerGauge(
         "AdviceCanvas", 0, BMI, BMI)
       .Set("chart.colors.ranges", [
-        [0.5, 3, "red"],
-        [0.1, 0.5, "yellow"],
-        [0.01, 0.1, "#0f0"],
-        [3.01, BMI, "red"]
+        [25.0, 35, "red"],
+        [18.5, 25.0, "#0f0"],
+        [0.01, 18.5, "yellow"],
+        [35.01, BMI, "red"]
       ]);
   }
   drawMeter(cg);
 }
 
 function levelBMeter(ctx, BMI) {
-  if (BMI <= 3) {
+  if (BMI <= 35) {
     var bcg = new RGraph.CornerGauge(
-        "AdviceCanvas", 0, 3, BMI)
+        "AdviceCanvas", 0, 35, BMI)
       .Set("chart.colors.ranges", [
-        [2.01, 3, "red"],
-        [0.51, 2, "yellow"],
-        [0.1, 0.5, "#0f0"],
-        [0.01, 0.1, "yellow"]
+        [30.01, 35, "red"],
+        [25.01, 30, "red"],
+        [18.5, 25.0, "#0f0"],
+        [0.01, 18.5, "yellow"]
       ]);
   } else {
     var bcg = new RGraph.CornerGauge(
         "AdviceCanvas", 0, BMI, BMI)
       .Set("chart.colors.ranges", [
-        [2.01, 3, "red"],
-        [0.51, 2, "yellow"],
-        [0.1, 0.5, "#0f0"],
-        [0.01, 0.1, "yellow"],
-        [3, BMI, "red"]
+        [30.01, 35, "red"],
+        [25.01, 30, "red"],
+        [18.5, 25.0, "#0f0"],
+        [0.01, 18.5, "yellow"],
+        [35, BMI, "red"]
       ]);
   }
   drawMeter(bcg);
 }
 
 function levelCMeter(ctx, BMI) {
-  if (BMI <= 15) {
+  if (BMI <= 45) {
     var ccg = new RGraph.CornerGauge(
-        "AdviceCanvas", 0, 15, BMI)
+        "AdviceCanvas", 0, 45, BMI)
       .Set("chart.colors.ranges", [
-        [10.01, 15, "red"],
-        [2.01, 10, "yellow"],
-        [0.35, 2, "#0f0"],
-        [0.1, .34, "yellow"]
+        [40.01, 45, "red"],
+        [30.01, 40, "red"],
+        [25.0, 30, "red"],
+        [18.5, 25.0, "#0f0"]
       ]);
   } else {
     var ccg = new RGraph.CornerGauge(
         "AdviceCanvas", 0, BMI, BMI)
       .Set("chart.colors.ranges", [
-        [10.01, 15, "red"],
-        [2.01, 10, "yellow"],
-        [0.35, 2, "#0f0"],
-        [0.1, 0.34, "yellow"],
-        [15.01, BMI, "red"]
+        [40.01, 45, "red"],
+        [30.01, 40, "red"],
+        [25.0, 30, "red"],
+        [18.5, 25.0, "#0f0"],
+        [45.01, BMI, "red"]
       ]);
   }
   drawMeter(ccg);
