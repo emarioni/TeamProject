@@ -83,7 +83,7 @@ function loadUserInformation() {
       user.FirstName + " " + user.LastName +
       "<br>Age: " + age +
       "<br>Health Card Number: " + user.HealthCardNumber +
-      "<br>New Password : " + user.NewPassword);
+      "<br>New Password: " + user.NewPassword);
     $("#divUserSection").append(
       "<br><a href='#pageUserInfo' data-mini='true' data-role='button' data-icon='edit' data-iconpos='left' data-inline='true' >Edit Profile</a>"
     );
@@ -363,4 +363,17 @@ function editRecord(index) {
   } else {
     alert("Please complete the form properly.");
   }
+}
+
+function calculateBMI(){
+    var height = document.frmNewRecordForm.txtHeight.value
+    var weight = document.frmNewRecordForm.txtWeight.value
+    
+    if(weight > 0 && height > 0){
+        var finalBmi = (weight/(height*height))*703;
+        document.frmNewRecordForm.bmi.value = new Number(finalBmi).toFixed(2)
+        
+    }else{
+        alert ("Please fill in all fields.")
+    }
 }
