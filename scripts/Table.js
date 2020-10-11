@@ -142,8 +142,8 @@ function listRecords() {
       "<thead>" +
       "   <tr>" +
       "     <th>Date</th>" +
-      "     <th>Height(m)</th>" +
-      "     <th>Weight(kg)</th>" +
+      "     <th>Height</th>" +
+      "     <th>Weight</th>" +
       "     <th>BMI</th>" +
       "     <th>Edit / Delete</th>" +
       "   </tr>" +
